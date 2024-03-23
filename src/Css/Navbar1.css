@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.NavBar {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-top: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.App-logo {
+    height: 40px;
+    width: auto;
+}
+
+.App-name {
+    color: #00162D;
+    font-weight: 500;
+}
+
+.Navbar-center {
+    flex: 2;
+    text-align: center;
+}
+
+.App-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+  
+.NavBar-left {
+    display: flex;
+    align-items: center;
+}
+  
+.NavBar-right {
+    display: flex;
+    gap: 10px;
+}
+  
+/*.app-bar-button {
+    width: 98px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: none;
+    color: #00162D;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+    align-items: center;
+    text-align: center;
+    font-style: none;
+}*/
+
+.app-bar-button {
+    width: 98px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: transparent;
+    color: #00162D;
+    border: 2px solid transparent;
+}
+
+.last-button {
+    width: 98px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background-color: #00162D;
+    color: white;
+    border: 2px solid transparent;
+}
+  
+.app-bar-button:hover {
+    background-color: #00162D;
+    border-color: #00162D;
+    color: white;
+}
+
+.last-button:hover {
+    background-color: transparent;
+    border-color: #00162D;
+    color: #00162D;
+}

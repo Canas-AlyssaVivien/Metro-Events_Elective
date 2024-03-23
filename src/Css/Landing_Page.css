@@ -1,0 +1,63 @@
+.card {
+    margin-top: 20px;
+    margin-left: 50px;
+    border-radius: 25px;
+    width: 700px;
+    height: 600px;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signup {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.name, .para {
+    margin-bottom: 30px;
+}
+
+.name h1 {
+    font-size: 48px;
+    font-weight: 600;
+    color: #00162D;
+}
+
+h4 {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.signup input {
+    width: 428px;
+    border-radius: 12px;
+    outline: 1px red;
+    background-color: transparent;
+    padding: 10px;
+    font-size: 14px;
+}
+.signup button {
+    width: 176px;
+    height: 45px;
+    border-radius: 32px;
+    background-color: #00162D;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+}
+
+.signup button:hover {
+    background-color: transparent;
+    border: 3px solid #00162D;
+    color: #00162D;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 400;
+}
