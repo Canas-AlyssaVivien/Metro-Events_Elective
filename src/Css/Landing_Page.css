@@ -1,5 +1,12 @@
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 94vh;
+}
+
 .card {
-    margin-top: 20px;
+    margin: 0 auto;
     margin-left: 50px;
     border-radius: 25px;
     width: 700px;

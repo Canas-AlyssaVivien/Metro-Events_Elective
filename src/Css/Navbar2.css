@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.NavBar2 {
+    height: 45px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.App-logo {
+    height: 40px;
+    width: auto;
+}
+
+.App-name {
+    color: #00162D;
+    font-weight: 500;
+}
+
+.Navbar-center {
+    flex: 1;
+    text-align: center;
+}
+
+.App-name {
+    display: inline-block;
+    vertical-align: middle;
+}
+  
+.NavBar-left {
+    display: flex;
+    align-items: center;
+}
+  
+.NavBar2-right {
+    display: flex;
+    align-items: center;
+}
+
+.notifications {
+    font-size: 14px;
+    color: #00162D;
+    margin-right: 30px;
+}
+
+.user-profile {
+    width: 30px;
+}
