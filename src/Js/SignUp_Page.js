@@ -6,39 +6,55 @@ import { auth } from './firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from "firebase/database";
 import {db} from './firebase';
+import axios from 'axios';
+import Validation from './SignupValidation'
 
 function SignUp_Page() {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const history = useHistory();
+  const [values, setValues] = useState({
+    email: '',
+    username: '',
+    password: ''
+  });
 
-  const signUp = (e) => {
-    e.preventDefault();
+  const [errors, setErrors] = useState({})
 
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential);
+  const handleInput = (e) => {
+    setValues(prev => ({...prev, [e.target.name] : [e.target.value]}))
+  }
 
-      const userId = userCredential.user.uid;
+  // const navigate = useNavigate();
 
-      const userRef = ref(db, `Users/${userId}`);
-      set(userRef, {
-        username: username,
-        email: email,
-        password: password,
-        userType: 0
-      })
-        .then(() => {
-          console.log('User data added successfully');
-          history.push('/login');
-        })
-        .catch((error) => {
-          console.error('Error adding user data: ', error);
-        });
-    }).catch((error) => {
-      console.log(error);
-    })
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    
+      axios.post('http://localhost:8081/signup', values)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+   
+
+    // createUserWithEmailAndPassword(auth, email, password)
+    // .then((userCredential) => {
+    //   console.log(userCredential);
+
+    //   const userId = userCredential.user.uid;
+
+    //   const userRef = ref(db, `Users/${userId}`);
+    //   set(userRef, {
+    //     username: username,
+    //     email: email,
+    //     password: password,
+    //     userType: 0
+    //   })
+    //     .then(() => {
+    //       console.log('User data added successfully');
+    //       history.push('/login');
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error adding user data: ', error);
+    //     });
+    // }).catch((error) => {
+    //   console.log(error);
+    // })
   };
   
   return (
@@ -48,28 +64,28 @@ function SignUp_Page() {
               <h1>Create an account</h1>
             </div>
             <div className='login'>
-              <form onSubmit={signUp}>
+              <form onSubmit={handleSubmit}>
                 <label>Username</label>
                 <input
                   type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  name = 'username'
+                  onChange={handleInput}
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '2px'}}
                 ></input>
 
                 <label>Email Address</label>
                 <input
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  name = 'email'
+                  onChange={handleInput}
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '2px'}}
                 ></input>
 
                 <label>Password</label>
                 <input
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  name = 'password'
+                  onChange={handleInput}
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '1px', marginBottom: '10px'}}
                 ></input>
 

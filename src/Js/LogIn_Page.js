@@ -3,30 +3,44 @@ import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import { auth } from './firebase';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import Validation from './LoginValidation';
+import axios from 'axios';
 
 function LogIn_Page() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const history = useHistory();
+  const [values, setValues] = useState({
+      email: '',
+      password: ''
+  });
+
+  const [errors, setErrors] = useState({})
+
+  const handleInput = (e) => {
+    setValues(prev => ({...prev, [e.target.name] : [e.target.value]}))
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    
-    console.log("Email:", email);
-    console.log("Password:", password);
+    setErrors(Validation(values));
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("User Credential:", userCredential);
-        history.push('/home');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+    axios.post('http://localhost:8081/login', values)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+    
+    // console.log("Email:", email);
+    // console.log("Password:", password);
+
+    // signInWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     console.log("User Credential:", userCredential);
+    //     history.push('/home');
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
   
-        console.log("Error Code:", errorCode);
-        console.log("Error Message:", errorMessage);
-      });
+    //     console.log("Error Code:", errorCode);
+    //     console.log("Error Message:", errorMessage);
+    //   });
   };
   
   return (
@@ -49,18 +63,19 @@ function LogIn_Page() {
                 <label>Email Address</label>
                 <input 
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  name = 'email'
+                  onChange={handleInput}
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '2px'}}
                 ></input>
+
                 <div className='password-row'>
                   <label>Password</label>
                   <span className="password-icon">Hide</span>
                 </div>
                 <input
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  name = 'password'
+                  onChange={handleInput}
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '1px', marginBottom: '10px'}}
                 ></input>
                 <div className='rower'>
