@@ -10,6 +10,9 @@ import RegularUser_HomePage from './RegularUser_HomePage';
 import Organizer_NotificationDropDown from './Organize_NotificationDropDown';
 import Admin_NotificationsDropdown from './Admin_NotificationsDropdown';
 import Admin_HomePage from './Admin_HomePage';
+import RegularUser_ProfileDropdown from './RegularUser_ProfileDropdown';
+import Organizer_ProfileDropdown from './Organizer_ProfileDropdown';
+import Admin_ProfileDropdown from './Admin_ProfileDropdown';
 
 function App() {
 
@@ -44,6 +47,18 @@ function App() {
           <Route exact path="/adminnotif"> 
             <Navbar2/>
             <Admin_NotificationsDropdown/>
+          </Route>
+          <Route exact path="/regprof"> 
+            <Navbar2/>
+            <RegularUser_ProfileDropdown/>
+          </Route>
+          <Route exact path="/orgprof"> 
+            <Navbar2/>
+            <Organizer_ProfileDropdown/>
+          </Route>
+          <Route exact path="/adminprof"> 
+            <Navbar2/>
+            <Admin_ProfileDropdown/>
           </Route>
         </Switch>
       </div>

@@ -1,0 +1,47 @@
+.body9 {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 94vh;
+}
+  
+.card9{
+    width: 400px;
+    height: 150px;
+    padding: 20px;
+    margin-left: 1010px;
+    margin-top: 55px;
+    background-color: white;
+    border-radius: 24px;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.card9 h4 {
+    font-size: 18px;
+    transition: background-color 0.3s;
+    padding: 5px;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+.cont {
+    margin-top: 30px;
+}
+
+.button9 {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #00162D;
+    color: white;
+    font-size: 16px;
+    border-radius: 32px;
+    display: block;
+    margin-bottom: 10px;
+}
+  
+.button9:hover {
+    background-color: #f1c58f;
+    color: #000000;
+}
