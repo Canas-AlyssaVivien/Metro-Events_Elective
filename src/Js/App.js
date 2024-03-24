@@ -7,6 +7,9 @@ import Landing_Page from './Landing_Page';
 import LogIn_Page from './LogIn_Page';
 import SignUp_Page from './SignUp_Page';
 import RegularUser_HomePage from './RegularUser_HomePage';
+import Organizer_NotificationDropDown from './Organize_NotificationDropDown';
+import Admin_NotificationsDropdown from './Admin_NotificationsDropdown';
+import Admin_HomePage from './Admin_HomePage';
 
 function App() {
 
@@ -29,6 +32,18 @@ function App() {
           <Route exact path="/home"> 
             <Navbar2/>
             <RegularUser_HomePage/>
+          </Route>
+          <Route exact path="/adminhome"> 
+            <Navbar2/>
+            <Admin_HomePage/>
+          </Route>
+          <Route exact path="/orgnotif"> 
+            <Navbar2/>
+            <Organizer_NotificationDropDown/>
+          </Route>
+          <Route exact path="/adminnotif"> 
+            <Navbar2/>
+            <Admin_NotificationsDropdown/>
           </Route>
         </Switch>
       </div>
