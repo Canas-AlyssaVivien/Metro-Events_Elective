@@ -1,8 +1,33 @@
 import '../Css/LogIn_Page.css';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
+import { auth } from './firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 function LogIn_Page() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("User Credential:", userCredential);
+        history.push('/home');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+  
+        console.log("Error Code:", errorCode);
+        console.log("Error Message:", errorMessage);
+      });
+  };
   
   return (
       <div className='body1'>
@@ -20,17 +45,29 @@ function LogIn_Page() {
               <hr className='line' />
             </div>
             <div className='login'>
-              <label>Email Address</label>
-              <input type="email" style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '2px'}}/>
-              <div className='password-row'>
-                <label>Password</label>
-                <span className="password-icon">Hide</span>
-              </div>
-              <input type="password" style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '1px', marginBottom: '10px'}}/>
-              <div className='rower'>
-                <span className="forgot-password" style={{marginBottom: '50px'}}>Forgot Password?</span>
-              </div>
-              <button className="button">Log In</button>
+              <form onSubmit={handleSubmit}>
+                <label>Email Address</label>
+                <input 
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '2px'}}
+                ></input>
+                <div className='password-row'>
+                  <label>Password</label>
+                  <span className="password-icon">Hide</span>
+                </div>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '1px', marginBottom: '10px'}}
+                ></input>
+                <div className='rower'>
+                  <span className="forgot-password" style={{marginBottom: '50px'}}>Forgot Password?</span>
+                </div>
+                <button type='submit' className="button">Log In</button>
+              </form>
             </div>
         </div>
       </div>
