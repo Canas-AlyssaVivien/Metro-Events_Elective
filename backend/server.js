@@ -198,3 +198,4 @@ app.get('/logout', (req, res) => {
     res.clearCookie('token');
     return res.json({Status: "Success"})
 })
+
