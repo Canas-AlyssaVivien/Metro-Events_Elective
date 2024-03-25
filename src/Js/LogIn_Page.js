@@ -1,8 +1,6 @@
 import '../Css/LogIn_Page.css';
 import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
-import { auth } from './firebase';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Validation from './LoginValidation';
 import axios from 'axios';
 
@@ -41,23 +39,7 @@ function LogIn_Page() {
       }
     })
     .catch(err => console.log(err));
-    
-    // console.log("Email:", email);
-    // console.log("Password:", password);
-
-    // signInWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     console.log("User Credential:", userCredential);
-    //     history.push('/home');
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-  
-    //     console.log("Error Code:", errorCode);
-    //     console.log("Error Message:", errorMessage);
-    //   });
-  };
+  }
   
   return (
       <div className='body1'>

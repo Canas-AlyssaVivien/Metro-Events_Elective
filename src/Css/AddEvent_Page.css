@@ -1,0 +1,63 @@
+.addbody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 94vh;
+}
+  
+.addcard {
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 24px;
+}
+  
+.addname h1 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+  
+.addlogin {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 20px;
+}
+  
+.addlogin label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: rgba(102, 102, 102);
+}
+  
+.addlogin input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    background-color: transparent;
+}
+  
+.addbutton {
+    margin-top: 50px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #00162D;
+    color: white;
+    font-size: 16px;
+    border-radius: 32px;
+}
+  
+.addbutton:hover {
+    background-color: white;
+    color: #00162D;
+}

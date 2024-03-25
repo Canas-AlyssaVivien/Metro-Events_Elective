@@ -10,7 +10,7 @@ function Navbar2() {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <div className="NavBar2-right">
-          <span className='notifications'>Log Out</span>
+          <button className='notifications'>Log Out</button>
         </div>
       </div>
   );

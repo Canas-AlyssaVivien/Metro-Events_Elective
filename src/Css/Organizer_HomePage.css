@@ -1,37 +1,56 @@
-.body3 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 94vh;
-  }
-  
-  .card3-container {
-    display: flex;
-    justify-content: space-between;
-    width: 1400px;
-    height: 600px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 24px;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  .card3-column {
-    display: flex;
-    flex-direction: column;
-    width: 45%;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .card3 h4 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
+.orgbody {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 94vh;
+}
 
-  .card3, .card33 {
-    flex-grow: 1;
-  }
+.orgcard h4, .orgcard1 h4{
+  font-size: 24px;
+  font-weight: bold;  
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.orgcard, .orgcard1 {
+  flex-grow: 1;
+}
+
+.orgcard, .orgcard1 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  width: auto;
+  height: 600px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.eventRow {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.eventRow > div {
+  margin-bottom: 5px;
+}
+
+.dateandtime {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.etitle {
+  font-size: 20px;
+}
+
+.edate, .etime, .edes {
+  font-size: 10px;
+}
