@@ -30,6 +30,7 @@ function Navbar2() {
             <span className='App-name'>Metro Events</span>
         </div>
         <div className="NavBar2-right">
+          <Link to="/usernotifications" className='notifications'>Notifications</Link>
           <span className='notifications' onClick={handleLogout}>Log Out</span>
         </div>
       </div>
