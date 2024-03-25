@@ -2,12 +2,7 @@ import '../Css/SignUp_Page.css';
 import { useNavigate } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
-import { auth } from './firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { ref, set } from "firebase/database";
-import {db} from './firebase';
 import axios from 'axios';
-import Validation from './SignupValidation'
 
 function SignUp_Page() {
   const history = useHistory();
@@ -95,16 +90,7 @@ function SignUp_Page() {
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '1px', marginBottom: '10px'}}
                 ></input>
 
-                <div className='rower'>
-                    <label className="checkbox-container" style={{marginTop: '20px'}}>
-                        <input type="checkbox" />
-                        <span className="checkmark"></span>
-                    </label>
-                    <span className="terms" style={{ marginBottom: '50px', marginTop: '20px' }}>
-                        By creating an account, I agree to our Terms of use and Privacy Policy
-                    </span>
-                </div>
-                <button type='submit' className="button">Sign Up</button>
+                <button type='submit' className="sbutton">Sign Up</button>
               </form>
             </div>
         </div>

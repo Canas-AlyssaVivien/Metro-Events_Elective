@@ -65,15 +65,6 @@ function LogIn_Page() {
             <div className='name1'>
               <h1>Log in to your account</h1>
             </div>
-            <div className='buttons1'>
-              <button>Continue with Facebook</button>
-              <button>Continue with Google</button>
-            </div>
-            <div className='or'>
-              <hr className='line' />
-              <h2>OR</h2>
-              <hr className='line' />
-            </div>
             <div className='login'>
               <form onSubmit={handleSubmit}>
                 <label>Email Address</label>
@@ -83,10 +74,8 @@ function LogIn_Page() {
                   onChange={handleInput}
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '2px'}}
                 ></input>
-
                 <div className='password-row'>
                   <label>Password</label>
-                  <span className="password-icon">Hide</span>
                 </div>
                 <input
                   type="password"
@@ -94,10 +83,7 @@ function LogIn_Page() {
                   onChange={handleInput}
                   style={{ borderColor: 'rgba(102, 102, 102, 0.35)', borderWidth: '1px', marginBottom: '10px'}}
                 ></input>
-                <div className='rower'>
-                  <span className="forgot-password" style={{marginBottom: '50px'}}>Forgot Password?</span>
-                </div>
-                <button type='submit' className="button">Log In</button>
+                <button type='submit' className="lbutton">Log In</button>
               </form>
             </div>
         </div>
