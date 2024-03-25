@@ -45,30 +45,20 @@ const EventCard = ({ event, sendRequestToJoin }) => {
 
   return (
     <div className="event-card">
-      <h3>{event.eventTitle}</h3>
-      <div className="event-details">
-        <div className="details-row">
-          <p className="event-detail">
-            <strong>Description:</strong> {event.eventDescription}
-          </p>
-          <p className="event-detail">
-            <strong>Event Date:</strong> {dateTimeFormat.formatDate(event.eventDate)}
-          </p>
-          <p className="event-detail">
-            <strong>Event Time:</strong> {dateTimeFormat.formatTime(event.eventTime)}
-          </p>
-          <p className="event-detail">
-            <strong>Event Created:</strong> {formatDate(event.eventCreated)}
-          </p>
-          <p className="event-detail">
-            <strong>Event Organizer:</strong> {event.username}
-          </p>
-          <button className='buttoncard' onClick={handleJoin}>
-            Join
-          </button>
-        </div>
+
+      <div className='firstrow'>
+        <h3>{event.eventTitle}</h3>
+        <p className="date"> {dateTimeFormat.formatDate(event.eventDate)}, {dateTimeFormat.formatTime(event.eventTime)}</p>
       </div>
-      <hr className="divider"/>
+
+      <div className='secondrow'>
+        <p className="des">
+          {event.eventDescription}, {event.username}
+        </p>
+        <button className='buttoncard' onClick={handleJoin}>
+          Join
+        </button>
+      </div>
     </div>
   );
 };
