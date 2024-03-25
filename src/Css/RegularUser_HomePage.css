@@ -1,11 +1,33 @@
 .body3 {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    align-items: center;
     height: 94vh;
+}
+
+.organizerbutton {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    width: auto;
+    padding: 10px;
+    border: none;
+    background-color: #00162D;
+    border: 2px solid transparent;
+    color: white;
+    font-size: 12px;
+    border-radius: 32px;
+}
+  
+.organizerbutton:hover {
+    background-color: transparent;
+    border: 2px solid #00162D;
+    color: #00162D;
 }
   
 .card3 {
+    align-self: center;
     width: 1300px;
     height: 600px;
     padding: 20px;

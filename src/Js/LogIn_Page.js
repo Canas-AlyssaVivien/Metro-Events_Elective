@@ -7,6 +7,9 @@ import Validation from './LoginValidation';
 import axios from 'axios';
 
 function LogIn_Page() {
+  const history = useHistory();
+  const [user, setUser] = useState(null);
+
   const [values, setValues] = useState({
       email: '',
       password: ''
@@ -23,7 +26,20 @@ function LogIn_Page() {
     setErrors(Validation(values));
 
     axios.post('http://localhost:8081/login', values)
-    .then(res => console.log(res))
+    .then(res => {
+      const userData = res.data[0];
+      setUser(userData);
+      
+      const usertype = user.usertype;
+      console.log(user);
+      console.log('User Type: ' + usertype);
+      
+      if(usertype == 0) {
+        history.push('/home');
+      } else if(usertype == 1) {
+        history.push('/organizerhome')
+      }
+    })
     .catch(err => console.log(err));
     
     // console.log("Email:", email);

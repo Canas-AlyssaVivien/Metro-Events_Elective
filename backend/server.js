@@ -36,7 +36,7 @@ app.post('/login', (req, res) => {
             return res.json(err);
         }
         if(data.length > 0){
-            return res.json("Success");
+            return res.json(data);
         } else {
             return res.json("Fail");
         }

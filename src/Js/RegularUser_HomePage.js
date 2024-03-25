@@ -6,6 +6,7 @@ function RegularUser_HomePage() {
   
   return (
       <div className='body3'>
+        <button className="organizerbutton">Send Request to be an Organizer</button>
         <div className='card3'>
           <h4>Events</h4>
         </div>

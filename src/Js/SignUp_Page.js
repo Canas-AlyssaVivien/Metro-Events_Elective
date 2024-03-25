@@ -10,6 +10,8 @@ import axios from 'axios';
 import Validation from './SignupValidation'
 
 function SignUp_Page() {
+  const history = useHistory();
+
   const [values, setValues] = useState({
     usertype: 0,
     email: '',
@@ -29,8 +31,11 @@ function SignUp_Page() {
     e.preventDefault(); 
     
     axios.post('http://localhost:8081/signup', values)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .then(res => {
+      console.log(res);
+      history.push('/login');
+      console.log('Success');
+    }).catch(err => console.log(err));
    
 
     // createUserWithEmailAndPassword(auth, email, password)

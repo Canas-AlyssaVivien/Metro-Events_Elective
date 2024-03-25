@@ -13,8 +13,7 @@ function Navbar2() {
             <span className='App-name'>Metro Events</span>
         </div>
         <div className="NavBar2-right">
-          <span className='notifications'>Notifications</span>
-          <img src={logo} className='user-profile' />
+          <span className='notifications'>Log Out</span>
         </div>
       </div>
   );

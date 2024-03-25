@@ -13,6 +13,7 @@ import Admin_HomePage from './Admin_HomePage';
 import RegularUser_ProfileDropdown from './RegularUser_ProfileDropdown';
 import Organizer_ProfileDropdown from './Organizer_ProfileDropdown';
 import Admin_ProfileDropdown from './Admin_ProfileDropdown';
+import Organizer_HomePage from './Organizer_HomePage';
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
           <Route exact path="/adminhome"> 
             <Navbar2/>
             <Admin_HomePage/>
+          </Route>
+          <Route exact path="/organizerhome">
+            <Navbar2/>
+            <Organizer_HomePage/>
           </Route>
           <Route exact path="/orgnotif"> 
             <Navbar2/>
