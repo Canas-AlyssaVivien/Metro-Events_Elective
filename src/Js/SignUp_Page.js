@@ -11,6 +11,7 @@ import Validation from './SignupValidation'
 
 function SignUp_Page() {
   const [values, setValues] = useState({
+    usertype: 0,
     email: '',
     username: '',
     password: ''
@@ -27,9 +28,9 @@ function SignUp_Page() {
   const handleSubmit = (e) => {
     e.preventDefault(); 
     
-      axios.post('http://localhost:8081/signup', values)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    axios.post('http://localhost:8081/signup', values)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
    
 
     // createUserWithEmailAndPassword(auth, email, password)

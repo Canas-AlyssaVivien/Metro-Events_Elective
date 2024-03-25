@@ -14,8 +14,9 @@ const db = mysql.createConnection({
 })
 
 app.post('/signup', (req, res) => {
-    const sql = "INSERT INTO users (email, username, password) VALUES (?)";
+    const sql = "INSERT INTO users (usertype, email, username, password) VALUES (?)";
     const values = [
+        req.body.usertype,
         req.body.email,
         req.body.username,
         req.body.password
@@ -29,14 +30,10 @@ app.post('/signup', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    const sql = "SELECT * FROM login WHERE email = ? AND password = ?";
-    const values = [
-        req.body.email,
-        req.body.password
-    ]
-    db.query(sql, [values], (err, data) => {
+    const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+    db.query(sql, [req.body.email, req.body.password], (err, data) => {
         if(err){
-            return res.json("Error");
+            return res.json(err);
         }
         if(data.length > 0){
             return res.json("Success");
