@@ -19,6 +19,7 @@ function LogIn_Page() {
     setValues(prev => ({...prev, [e.target.name] : [e.target.value]}))
   }
 
+  axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault(); 
     setErrors(Validation(values));

@@ -1,16 +1,31 @@
-const express = require("express");
-const mysql = require('mysql');
-const cors = require('cors');
+// const express = require("express");
+// const mysql = require('mysql');
+// const cors = require('cors');
+
+import express from 'express'
+import mysql from 'mysql'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import jwt from 'jsonwebtoken'
+
+// const app = express();
+// app.use(cors());
+// app.use(express.json());
 
 const app = express();
-app.use(cors());
+app.use(cookieParser())
+app.use(cors({
+        origin: ["http://localhost:3000"],
+        methods: ["POST, GET"],
+        credentials: true
+}));
 app.use(express.json());
 
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "metroevents"
+    database: "metroeventss"
 });
 
 app.post('/signup', (req, res) => {
@@ -36,6 +51,9 @@ app.post('/login', (req, res) => {
             return res.json(err);
         }
         if(data.length > 0){
+            const name = data[0].name;
+            const token = jwt.sign({name}, "our-token", {expiresIn: '1d'});
+            res.cookie('token', token);
             return res.json(data);
         } else {
             return res.json("Fail");
@@ -175,3 +193,8 @@ app.get('/organizernotifications', (req, res) => {
       }
     });
 });
+
+app.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    return res.json({Status: "Success"})
+})
