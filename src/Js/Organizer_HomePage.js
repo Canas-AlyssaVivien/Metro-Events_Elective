@@ -27,7 +27,10 @@ function Organizer_HomePage() {
                 <div className='etitle'>{event.eventTitle}</div>
                 <div className='edate'>{new Date(event.eventDate).toLocaleDateString()}, {event.eventTime.replace(/:[0-9]{2}\.?[0-9]*$/, '')}</div>
               </div>
-              <div className='edes'>{event.eventDescription}</div>
+              <div className='desbut'>
+                <div className='edes'>{event.eventDescription}</div>
+                <button className='cbutton'>Cancel Event</button>
+              </div>
             </div>
           ))}
           </ul>
