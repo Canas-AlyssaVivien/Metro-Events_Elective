@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.notifications {
+.orgbuttons {
     padding: 5px;
     border: none;
     outline: none;
@@ -38,9 +38,10 @@
     font-size: 14px;
     margin-left: 20px;
     color: #00162D;
+    text-decoration: none;
 }
 
-.notifications:hover {
+.orgbuttons:hover {
     font-weight: 800;
     color: #00162D;
 }

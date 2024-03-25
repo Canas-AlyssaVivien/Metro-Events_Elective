@@ -12,8 +12,6 @@ function Navbar1() {
         <div className="NavBar-right">
           <Link to="/login" className="app-bar-button">Log In</Link>
           <Link to="/signup" className="last-button">Sign Up</Link>
-          {/*<button className="app-bar-button">Log In</button>
-          <button className="last-button">Sign Up</button>*/}
         </div>
       </div>
   );

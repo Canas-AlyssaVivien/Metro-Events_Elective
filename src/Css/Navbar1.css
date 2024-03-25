@@ -41,22 +41,6 @@
     display: flex;
     gap: 10px;
 }
-  
-/*.app-bar-button {
-    width: 98px;
-    height: 30px;
-    border-radius: 10px;
-    background-color: transparent;
-    border: none;
-    color: #00162D;
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    font-weight: 400;
-    align-items: center;
-    text-align: center;
-    font-style: none;
-}*/
 
 .app-bar-button {
     width: 98px;

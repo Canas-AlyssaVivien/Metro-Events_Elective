@@ -20,8 +20,6 @@ function SignUp_Page() {
     setValues(prev => ({...prev, [e.target.name] : [e.target.value]}))
   }
 
-  // const navigate = useNavigate();
-
   const handleSubmit = (e) => {
     e.preventDefault(); 
     
