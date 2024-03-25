@@ -43,6 +43,39 @@ app.post('/login', (req, res) => {
     })
 })
 
+app.get('/events', (req, res) => {
+  const sql = 'SELECT * FROM events';
+  db.query(sql, (err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json(data);
+  });
+});
+
+app.post('/requestToOrganizer', (req, res) => {
+    const { username, status } = req.body;
+    const sql = "INSERT INTO orgrequests (username, status) VALUES (?, ?)";
+    db.query(sql, [username, status], (err, data) => {
+        if(err){
+            return res.status(500).json({ error: "Error sending request" });
+        }
+        return res.status(200).json({ message: "Request sent successfully" });
+    })
+})
+
+app.post('/requestToJoin', (req, res) => {
+    const { username, eventTitle, status } = req.body;
+    const sql = "INSERT INTO requests (username, eventTitle, status) VALUES (?, ?, ?)";
+    db.query(sql, [username, eventTitle, status], (err, data) => {
+        if(err){
+            return res.status(500).json({ error: "Error sending request" });
+        }
+        return res.status(200).json({ message: "Request sent successfully" });
+    });
+});
+
+
 app.listen(8081, () => {
     console.log("listening");
 })

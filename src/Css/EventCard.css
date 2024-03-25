@@ -1,0 +1,39 @@
+.event-card {
+  min-width: 300px;
+  margin-right: 16px;
+}
+
+.buttoncard {
+    width: 70px;
+    border: none;
+    background-color: #00162D;
+    color: white;
+    font-size: 16px;
+    border-radius: 32px;
+    display: block;
+    margin-left: 20px;
+}
+  
+.buttoncard:hover {
+    background-color: #f1c58f;
+    color: #000000;
+}
+
+.details-row {
+  display: flex;
+  flex-wrap: wrap; /* Wrap to next line if content exceeds width */
+}
+
+.details-row p {
+  margin-right: 20px; /* Adjust spacing between details as needed */
+}
+
+.event-detail {
+  padding-right: 10px; /* Adjust the right margin for spacing between details */
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #404040; /* Example styling for the divider */
+  margin: 5px 0; /* Adjust margin as needed */
+}

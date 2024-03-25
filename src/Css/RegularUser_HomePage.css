@@ -1,4 +1,5 @@
 .body3 {
+    position: relative; /* Add this to make sure positioning is relative to this container */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -7,10 +8,11 @@
 }
 
 .organizerbutton {
-    margin-top: 20px;
+    position: absolute;
+    top: 20px; /* Adjust top position as needed */
+    left: 100px; /* Adjust left position as needed */
     margin-bottom: 20px;
-    margin-left: 50px;
-    width: auto;
+    width: 200px;
     padding: 10px;
     border: none;
     background-color: #00162D;
@@ -18,6 +20,7 @@
     color: white;
     font-size: 12px;
     border-radius: 32px;
+    z-index: 2; /* Ensure the button is above other elements */
 }
   
 .organizerbutton:hover {
@@ -28,14 +31,28 @@
   
 .card3 {
     align-self: center;
-    width: 1300px;
-    height: 600px;
+    margin-top: 80px;
+    width: auto; /* Allow the card to resize based on content */
+    max-width: 85%; /* Restrict the maximum width to prevent it from overflowing its parent */
+    height: 500px; /* Allow the height to adjust based on content */
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 24px;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
 .cards h4 {
     font-size: 24px;
 }
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+}
+  
+.event-details p {
+    margin: 0;
+}
+
