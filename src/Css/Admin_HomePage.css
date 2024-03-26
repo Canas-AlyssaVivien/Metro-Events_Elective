@@ -57,10 +57,6 @@
     width: auto;
   }
 
-  .emai1 {
-    font-size: 12px;
-  }
-
   .columnscxz {
     display: flex;
     flex-direction: column;
@@ -72,14 +68,19 @@
     justify-content: space-between;
   }
 
-.emai11 {
-  font-size: 14px;
-}
-
 .tap {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-size: 12px;
   align-items: center;
+}
+
+.one {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.two {
+  font-size: 14px;
 }

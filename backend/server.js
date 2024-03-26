@@ -25,7 +25,7 @@ const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "metroeventss"
+    database: "metroevents"
 });
 
 app.post('/signup', (req, res) => {
@@ -91,6 +91,91 @@ app.get('/admin', (req, res) => {
     });
   });
 
+  app.post('/sendApprove', (req, res) => {
+    const status = 1;
+
+    const sql = "INSERT INTO orgnotifications (username, status) VALUES (?)";
+    const values = [
+        req.body.username,
+        status
+    ]
+    db.query(sql, [values], (err, data) => {
+        if(err){
+            return res.json("Error");
+        }
+        return res.json(data);
+    })
+});
+
+app.post('/deleteUser', (req, res) => {
+    const username = req.body.username;
+    const deleteRequestSql = 'DELETE FROM users WHERE username = ?';
+    db.query(deleteRequestSql, [username], (err, result) => {
+        if (err) {
+            console.error('Error deleting user:', err);
+            return res.status(500).json({ error: 'Error deleting user' });
+        }
+
+        db.commit((err) => {
+            if (err) {
+                console.error('Error committing transaction:', err);
+                return res.status(500).json({ error: 'Error committing transaction' });
+            }
+
+            return res.status(200).json({ message: 'User deleted successfully' });
+        });
+    });
+});
+
+app.post('/deleteEvent', (req, res) => {
+    const eventID = req.body.eventID
+    const deleteRequestSql = 'DELETE FROM events WHERE eventID = ?';
+    db.query(deleteRequestSql, [eventID], (err, result) => {
+        if (err) {
+            console.error('Error deleting event:', err);
+            return res.status(500).json({ error: 'Error deleting user' });
+        }
+
+        db.commit((err) => {
+            if (err) {
+                console.error('Error committing transaction:', err);
+                return res.status(500).json({ error: 'Error committing transaction' });
+            }
+
+            return res.status(200).json({ message: 'User deleted successfully' });
+        });
+    });
+});
+
+
+
+app.post('/sendDecline', (req, res) => {
+    const username = req.body.username;
+    const status = 0;
+
+    const sql = "INSERT INTO orgnotifications (username, status) VALUES (?)";
+    const values = [
+        username,
+        status
+    ]
+    db.query(sql, [values], (err, data) => {
+        if(err){
+            return res.json("Error");
+        }
+
+        const deleteRequestSql = 'DELETE FROM orgrequests WHERE username = ?';
+            db.query(deleteRequestSql, [username], (err, result) => {
+                if (err) {
+                    console.error('Error deleting request:', err);
+                    return db.rollback(() => {
+                        res.status(500).json({ error: 'Error deleting request' });
+                    });
+                }
+            });
+        return res.json(data);
+    })
+});
+
   app.post('/approveUser', (req, res) => {
     const username = req.body.username;
 
@@ -112,24 +197,20 @@ app.get('/admin', (req, res) => {
             const deleteRequestSql = 'DELETE FROM orgrequests WHERE username = ?';
             db.query(deleteRequestSql, [username], (err, result) => {
                 if (err) {
-                    // Rollback the transaction if an error occurs
                     console.error('Error deleting request:', err);
                     return db.rollback(() => {
                         res.status(500).json({ error: 'Error deleting request' });
                     });
                 }
 
-                // Commit the transaction if both operations are successful
-                db.commit((err) => {
-                    if (err) {
-                        console.error('Error committing transaction:', err);
-                        return res.status(500).json({ error: 'Error committing transaction' });
-                    }
-
-                    // Send a success response
-                    return res.status(200).json({ message: 'User approved and request deleted successfully' });
+                    db.commit((err) => {
+                        if (err) {
+                            console.error('Error committing transaction:', err);
+                            return res.status(500).json({ error: 'Error committing transaction' });
+                        }
+                        return res.status(200).json({ message: 'User approved, request deleted, and notification inserted successfully' });
+                    });
                 });
-            });
         });
     });
 });

@@ -21,14 +21,32 @@ function AdminNotifications_Page() {
 
   const handleApprove = (username) => {
     axios.post('http://localhost:8081/approveUser', { username })
-        .then(response => {
-            console.log("User approved:", response.data);
-            fetchRequests();
-        })
-        .catch(error => {
-            console.error('Error approving user:', error);
-        });
+      .then(response => {
+          console.log("User approved:", response.data);
+          axios.post('http://localhost:8081/sendApprove', { username })
+          .then(response => {
+              console.log("User approved:", response.data);
+          })
+          .catch(error => {
+              console.error('Error approving user:', error);
+          });
+          fetchRequests();
+      })
+      .catch(error => {
+          console.error('Error approving user:', error);
+      });
 };
+
+  const handleDecline = (username) => {
+    axios.post('http://localhost:8081/sendDecline', { username })
+      .then(response => {
+          console.log("User approved:", response.data);
+          fetchRequests();
+      })
+      .catch(error => {
+          console.error('Error approving user:', error);
+      });
+  }
 
   return (
       <div className='reqbody'>
@@ -42,7 +60,7 @@ function AdminNotifications_Page() {
                     </div>
                     <div className='nbuttons'>
                         <button className='approve' onClick={() => handleApprove(request.username)} >Approve</button>
-                        <button className='decline'>Decline</button>
+                        <button className='decline'onClick={() => handleDecline(request.username)}>Decline</button>
                     </div>
                 </div>
             ))}

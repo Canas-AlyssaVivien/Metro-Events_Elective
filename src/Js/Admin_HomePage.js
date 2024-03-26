@@ -7,22 +7,48 @@ function Admin_HomePage() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8081/admin')
-      .then(response => {
-        setUsers(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching events:', error);
-      });
-
-      axios.get('http://localhost:8081/events')
-      .then(response => {
-        setEvents(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching events:', error);
-      });
+    fetchRequests();
   }, []);
+
+  const fetchRequests = () => {
+    axios.get('http://localhost:8081/admin')
+    .then(response => {
+      setUsers(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching events:', error);
+    });
+
+    axios.get('http://localhost:8081/events')
+    .then(response => {
+      setEvents(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching events:', error);
+    });
+  };
+
+  const deleteUser = (username) => {
+    axios.post('http://localhost:8081/deleteUser', { username })
+      .then(response => {
+          console.log("User deleted:", response.data);
+          fetchRequests();
+      })
+      .catch(error => {
+          console.error('Error approving user:', error);
+      });
+  };
+
+  const deleteEvent = (eventID) => {
+    axios.post('http://localhost:8081/deleteEvent', { eventID })
+      .then(response => {
+        console.log("Event deleted:", response.data);
+        fetchRequests();
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+      });
+  }
 
     return (
         <div className='orgbody'>
@@ -33,10 +59,10 @@ function Admin_HomePage() {
                 <div key={user.userID} className="eventRow">
                   <div className="columnscx">
                     <div className="rowscx">
-                      <div className='usern'>{user.username}</div>
-                      <div className='emai1'>{user.email}</div>
+                      <div className='one'>{user.username}</div>
+                      <div className='two'>{user.email}</div>
                     </div>
-                    <button className='ccbutton'>Delete User</button>
+                    <button className='ccbutton' onClick={() => deleteUser(user.username)}>Delete User</button>
                   </div>
                 </div>
               ))}
@@ -49,12 +75,12 @@ function Admin_HomePage() {
                 <div key={event.eventID} className="eventRow">
                   <div className="columnscxz">
                     <div className="rowscxz">
-                        <div className='usern'>{event.eventTitle}</div>
-                        <div className='emai11'>{event.username}</div>
+                        <div className='one'>{event.eventTitle}</div>
+                        <div className='two'>{event.username}</div>
                     </div>
                     <div className="tap">
-                      <div className='usern'>{event.eventDescription}</div>
-                      <button className='ccbutton'>Delete User</button>
+                      <div className='two'>{event.eventDescription}</div>
+                      <button className='ccbutton' onClick={() => deleteEvent(event.eventID)}>Delete Event</button>
                     </div>
                   </div>
                 </div>
