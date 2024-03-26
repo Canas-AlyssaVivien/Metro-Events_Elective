@@ -71,6 +71,69 @@ app.get('/events', (req, res) => {
   });
 });
 
+app.get('/admin', (req, res) => {
+    const sql = 'SELECT * FROM users';
+    db.query(sql, (err, data) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.json(data);
+    });
+  });
+
+  app.get('/adminnotifications', (req, res) => {
+    const sql = 'SELECT * FROM orgrequests';
+    db.query(sql, (err, data) => {
+      if (err) {
+        return res.json(err);
+      }
+      return res.json(data);
+    });
+  });
+
+  app.post('/approveUser', (req, res) => {
+    const username = req.body.username;
+
+    db.beginTransaction((err) => {
+        if (err) {
+            console.error('Error beginning transaction:', err);
+            return res.status(500).json({ error: 'Error beginning transaction' });
+        }
+
+        const updateUserSql = 'UPDATE users SET usertype = 1 WHERE username = ?';
+        db.query(updateUserSql, [username], (err, result) => {
+            if (err) {
+                console.error('Error updating user:', err);
+                return db.rollback(() => {
+                    res.status(500).json({ error: 'Error updating user' });
+                });
+            }
+
+            const deleteRequestSql = 'DELETE FROM orgrequests WHERE username = ?';
+            db.query(deleteRequestSql, [username], (err, result) => {
+                if (err) {
+                    // Rollback the transaction if an error occurs
+                    console.error('Error deleting request:', err);
+                    return db.rollback(() => {
+                        res.status(500).json({ error: 'Error deleting request' });
+                    });
+                }
+
+                // Commit the transaction if both operations are successful
+                db.commit((err) => {
+                    if (err) {
+                        console.error('Error committing transaction:', err);
+                        return res.status(500).json({ error: 'Error committing transaction' });
+                    }
+
+                    // Send a success response
+                    return res.status(200).json({ message: 'User approved and request deleted successfully' });
+                });
+            });
+        });
+    });
+});
+
 app.post('/requestToOrganizer', (req, res) => {
     const { username, status } = req.body;
     const sql = "INSERT INTO orgrequests (username, status) VALUES (?, ?)";

@@ -14,6 +14,7 @@
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 24px;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
   }
   
   .card6-column {
@@ -42,3 +43,43 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+
+  .columnscx {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rowscx {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+
+  .emai1 {
+    font-size: 12px;
+  }
+
+  .columnscxz {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rowscxz {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+.emai11 {
+  font-size: 14px;
+}
+
+.tap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 12px;
+  align-items: center;
+}
