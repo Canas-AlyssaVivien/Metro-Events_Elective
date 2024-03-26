@@ -18,7 +18,7 @@ function OrganizerNotifications_Page() {
   }, []);
 
   const fetchRequests = () => {
-    axios.get('http://localhost:8081/organizernotifications')
+    axios.get('http://localhost:8081/organizernotifications', {withCredentials: true})
       .then(response => {
         setRequests(response.data);
       })
