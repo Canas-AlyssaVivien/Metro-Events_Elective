@@ -51,7 +51,7 @@ app.post('/login', (req, res) => {
             return res.json(err);
         }
         if(data.length > 0){
-            const name = data[0].name;
+            const name = data[0].username;
             const token = jwt.sign({name}, "our-token", {expiresIn: '1d'});
             res.cookie('token', token);
             return res.json(data);
@@ -198,4 +198,33 @@ app.get('/logout', (req, res) => {
     res.clearCookie('token');
     return res.json({Status: "Success"})
 })
+
+app.get('/usernotifications', (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ error: "Token not found" });
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, "our-token");
+        const username = decodedToken.name;
+
+        console.log("Username:", username);
+
+        db.query("SELECT * FROM eventnotifications WHERE username = ?", [username], (err, data) => {
+            if (err) {
+                console.error('Error fetching notifications:', err);
+                return res.status(500).json({ error: "Error fetching notifications" });
+            } else {
+                res.json(data);
+            }
+        });
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return res.status(401).json({ error: "Invalid token" });
+    }
+});
+
+
+
 
