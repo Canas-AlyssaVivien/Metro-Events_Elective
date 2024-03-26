@@ -23,8 +23,10 @@ function RegularUser_HomePage() {
   const sendRequestToOrganizer = async () => {
     try {
       await axios.post('http://localhost:8081/requestToOrganizer', {
-        username: 'alyssa',
+        username: '',
         status: 0
+      }, {
+        withCredentials: true 
       });
       console.log("Request sent successfully");
       alert("Request sent successfully");
@@ -37,19 +39,23 @@ function RegularUser_HomePage() {
 
   const sendRequestToJoin = async (eventTitle, eventID, organizer) => {
     try {
-      await axios.post('http://localhost:8081/requestToJoin', {
-        username: 'carly',
-        eventTitle: eventTitle,
-        status: 0
-      });
-      console.log("Request sent successfully");
-      alert("Request sent successfully");
-      setRequestSent(true);
+        await axios.post('http://localhost:8081/requestToJoin', {
+            username: '',
+            eventTitle: eventTitle,
+            status: 0,
+            organizer: organizer
+        }, {
+            withCredentials: true 
+        });
+        console.log("Request sent successfully");
+        alert("Request sent successfully");
+        setRequestSent(true);
     } catch (err) {
-console.error(err);
-      alert("An error occurred, please try again later.");
+        console.error(err);
+        alert("An error occurred, please try again later.");
     }
-  };
+};
+
 
   return (
     <div className="body3">
