@@ -78,7 +78,7 @@ app.post('/requestToOrganizer', (req, res) => {
         if(err){
             return res.status(500).json({ error: "Error sending request" });
         }
-        return res.status(200).json({ message: "Request sent successfully" });
+        return res.json(data);
     })
 })
 
