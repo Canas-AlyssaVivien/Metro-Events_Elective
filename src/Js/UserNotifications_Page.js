@@ -3,8 +3,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function UserNotifications_Page() {
-  
-  const [notifications, setNotifications] = useState([]);
+  /*const [requests, setRequests] = useState([]);
+
+    const [values, setValues] = useState({
+        eventTitle: '',
+        username: 'alyssavivien'
+    });
+
+    const handleSelectRequest = (request) => {
+        console.log("Event TITE: " + request.eventTitle);
+        setValues({ ...values, eventTitle: request.eventTitle });
+    };
+
+    useEffect(() => {
+        console.log("Updated values:", values);
+      }, [values]);
 
   useEffect(() => {
     fetchNotifications();
@@ -29,9 +42,9 @@ function UserNotifications_Page() {
       <div className='reqbody'>
         <div className='reqcard'>
           <h4>Notifications</h4>
-            <ul>
-              {notifications.map(notification => (
-                <div key={notification.notificationID} className="reqRow">
+            {/*<ul>
+            {requests.map(request => (
+                <div key={request.requestID} className="reqRow" onClick={() => handleSelectRequest(request)}>
                     <div className='des'>
                         <div className='etitle'>{notification.eventTitle}</div>
                         <div className='status'>{getStatusMessage(notification.status)}</div>

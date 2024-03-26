@@ -51,7 +51,7 @@ app.post('/login', (req, res) => {
             return res.json(err);
         }
         if(data.length > 0){
-            const name = data[0].username;
+            const name = data[0].userusername;
             const token = jwt.sign({name}, "our-token", {expiresIn: '1d'});
             res.cookie('token', token);
             return res.json(data);
@@ -270,3 +270,7 @@ app.get('/usernotifications', (req, res) => {
         return res.status(401).json({ error: "Invalid token" });
     }
 });
+
+
+
+
