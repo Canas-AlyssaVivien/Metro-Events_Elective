@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar1 from './Navbar1';
 import Navbar2 from './Navbar2';
 import Navbar3 from './Navbar3';
+import Navbar4 from './Navbar4';
 import Landing_Page from './Landing_Page';
 import LogIn_Page from './LogIn_Page';
 import SignUp_Page from './SignUp_Page';
@@ -12,6 +13,7 @@ import Organizer_HomePage from './Organizer_HomePage';
 import AddEvent_Page from './AddEvent_Page';
 import OrganizerNotifications_Page from './OrganizerNotifications_Page';
 import UserNotifications_Page from './UserNotifications_Page';
+import AdminNotifications_Page from './AdminNotifications_Page';
 
 function App() {
 
@@ -35,9 +37,13 @@ function App() {
             <Navbar2/>
             <RegularUser_HomePage/>
           </Route>
-          <Route exact path="/adminhome"> 
-            <Navbar2/>
+          <Route exact path="/admin"> 
+            <Navbar4/>
             <Admin_HomePage/>
+          </Route>
+          <Route exact path="/adminnotifications"> 
+            <Navbar4/>
+            <AdminNotifications_Page/>
           </Route>
           <Route exact path="/organizerhome">
             <Navbar3/>
