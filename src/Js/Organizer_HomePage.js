@@ -4,15 +4,26 @@ import axios from 'axios';
 
 function Organizer_HomePage() {
   const [events, setEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8081/organizerhome')
+    axios.get('http://localhost:8081/organizerhome', {withCredentials: true})
       .then(response => {
         setEvents(response.data);
         console.log(response.data);
       })
       .catch(error => {
         console.error('Error fetching events:', error);
+      });
+  
+
+    axios.get('http://localhost:8081/events')
+      .then(response => {
+        setAllEvents(response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching all events:', error);
       });
   }, []);
 
@@ -21,7 +32,7 @@ function Organizer_HomePage() {
         <div className='orgcard'>
           <h4>Events</h4>
           <ul>
-            {events.map(event => (
+            {allEvents.map(event => (
               <div key={event.eventID} className="eventRow">
                 <div className='etitle'>{event.eventTitle}</div>
                   <div className='dateandtime'>
@@ -32,7 +43,7 @@ function Organizer_HomePage() {
             ))}
           </ul>
         </div>
-        <div className='orgcard1'>
+        <div className= 'orgcard1'>
           <h4>My Events</h4>
           <ul>
             {events.map(event => (

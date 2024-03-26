@@ -26,16 +26,31 @@ const formatDate = (date) => {
     },
   
     formatTime: (timeString) => {
-      const time = new Date(`2022-01-01T${timeString.replace('Z', '+00:00')}`);
-      const options = {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      };
+      try {
+          // Ensure that timeString is in a valid format (e.g., "HH:MM:SS")
+          const timeParts = timeString.split(':');
+          const hours = parseInt(timeParts[0]);
+          const minutes = parseInt(timeParts[1]);
+          const seconds = parseInt(timeParts[2] || 0);
   
-      return new Intl.DateTimeFormat('en-US', options).format(time);
-    }
-  };
+          if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+              throw new Error('Invalid time format');
+          }
+  
+          const time = new Date(2022, 0, 1, hours, minutes, seconds);
+          const options = {
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: true
+          };
+  
+          return new Intl.DateTimeFormat('en-US', options).format(time);
+      } catch (error) {
+          console.error('Error formatting time:', error);
+          return 'Invalid time';
+      }
+  }
+  }  
 
 const EventCard = ({ event, sendRequestToJoin }) => {
   const handleJoin = (e) => {
