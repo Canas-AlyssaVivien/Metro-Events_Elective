@@ -28,6 +28,7 @@
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 24px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
 }
 
 .eventRow {
@@ -52,5 +53,39 @@
 }
 
 .edate, .etime, .edes {
+  font-size: 14px;
+}
+
+.reasoninput {
+  width: 400px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: transparent;
+  height: 10px;
   font-size: 10px;
+  margin-top: 5px;
+  border: 1px solid black;
+}
+
+.last {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ccbutton {
+  width: 150px;
+  height: 30px;
+  border: 3px solid transparent;
+  background-color: #00162D;
+  color: white;
+  font-size: 14px;
+  border-radius: 32px;
+}
+
+.ccbutton:hover {
+  border: 3px solid #00162D;
+  background-color: transparent;
+  color: #00162D;
 }
