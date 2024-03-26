@@ -6,14 +6,8 @@ function OrganizerNotifications_Page() {
   const [requests, setRequests] = useState([]);
 
     const [values, setValues] = useState({
-        eventTitle: '',
         username: 'alyssavivien'
     });
-
-    const handleSelectRequest = (request) => {
-        console.log("Event TITE: " + request.eventTitle);
-        setValues({ ...values, eventTitle: request.eventTitle });
-    };
 
     useEffect(() => {
         console.log("Updated values:", values);
@@ -33,8 +27,8 @@ function OrganizerNotifications_Page() {
       });
   };
 
-  const approve = (requestID) => {
-    const data = { ...values, requestID };
+  const approve = (requestID, eventTitle) => {
+    const data = { ...values, requestID, eventTitle };
     axios.post('http://localhost:8081/insertparticipant', data)
       .then(response => {
         console.log("Request approved:", response.data);
@@ -45,8 +39,9 @@ function OrganizerNotifications_Page() {
       });
   };
   
-  const decline = (requestID) => {
-    axios.delete('http://localhost:8081/deleterequest', { data: { requestID } })
+  const decline = (requestID, eventTitle) => {
+    const data = { ...values, requestID, eventTitle };
+    axios.post('http://localhost:8081/deleterequest', data)
       .then(response => {
         console.log("Request declined:", response.data);
         fetchRequests();
@@ -62,14 +57,14 @@ function OrganizerNotifications_Page() {
           <h4>Requests</h4>
             <ul>
             {requests.map(request => (
-                <div key={request.requestID} className="reqRow" onClick={() => handleSelectRequest(request)}>
+                <div key={request.requestID} className="reqRow">
                     <div className='des'>
                         <div className='etitle'>{request.eventTitle}</div>
                         <div className='euse'>{request.username}</div>
                     </div>
                     <div className='nbuttons'>
-                        <button className='approve' onClick={() => approve(request.requestID)}>Approve</button>
-                        <button className='decline' onClick={() => decline(request.requestID)}>Decline</button>
+                        <button className='approve' onClick={() => approve(request.requestID, request.eventTitle)}>Approve</button>
+                        <button className='decline' onClick={() => decline(request.requestID, request.eventTitle)}>Decline</button>
                     </div>
                 </div>
             ))}

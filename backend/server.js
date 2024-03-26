@@ -25,7 +25,7 @@ const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "metroeventss"
+    database: "metroevents"
 });
 
 app.post('/signup', (req, res) => {
@@ -51,7 +51,7 @@ app.post('/login', (req, res) => {
             return res.json(err);
         }
         if(data.length > 0){
-            const name = data[0].name;
+            const name = data[0].username;
             const token = jwt.sign({name}, "our-token", {expiresIn: '1d'});
             res.cookie('token', token);
             return res.json(data);
@@ -118,11 +118,18 @@ app.post('/addevent', (req, res) => {
 
 app.post('/insertparticipant', (req, res) => {
     const requestID = req.body.requestID;
+    const status = 1;
 
     const sqlDeleteRequest = "DELETE FROM requests WHERE requestID = ?";
 
     const values = [
         req.body.eventTitle,
+        req.body.username
+    ]
+
+    const notifvalues = [
+        req.body.eventTitle,
+        status,
         req.body.username
     ]
 
@@ -148,29 +155,68 @@ app.post('/insertparticipant', (req, res) => {
                     });
                 }
 
-                db.commit((err) => {
+                db.query("INSERT INTO eventnotifications (eventTitle, status, username) VALUES (?)", [notifvalues], (err, insertEventNotificationResult) => {
                     if (err) {
                         db.rollback(() => {
-                            console.error("Error committing transaction:", err);
-                            return res.status(500).json("Error committing transaction");
+                            console.error("Error inserting into eventnotifications:", err);
+                            return res.status(500).json("Error inserting into eventnotifications");
                         });
                     }
-                    
-                    return res.status(200).json("Participant inserted and request deleted successfully");
+
+                    db.commit((err) => {
+                        if (err) {
+                            db.rollback(() => {
+                                console.error("Error committing transaction:", err);
+                                return res.status(500).json("Error committing transaction");
+                            });
+                        }
+                        
+                        return res.status(200).json("Participant inserted, request deleted, and event notification inserted successfully");
+                    });
                 });
             });
         });
     });
 });
 
-app.delete('/deleterequest', (req, res) => {
+app.post('/deleterequest', (req, res) => {
     const requestID = req.body.requestID;
-    const sql = "DELETE FROM requests WHERE requestID = ?";
-    db.query(sql, [requestID], (err, data) => {
-        if(err){
-            return res.status(500).json({ error: "Error deleting request" });
+    const status = 0;
+    const sqlDeleteRequest = "DELETE FROM requests WHERE requestID = ?";
+
+    const notifvalues = [
+        req.body.eventTitle,
+        status,
+        req.body.username
+    ]
+
+    db.query(sqlDeleteRequest, [requestID], (err, deleteResult) => {
+        if (err) {
+            db.rollback(() => {
+                console.error("Error deleting from requests:", err);
+                return res.status(500).json("Error deleting from requests");
+            });
         }
-        return res.json({ message: "Request deleted successfully" });
+
+        db.query("INSERT INTO eventnotifications (eventTitle, status, username) VALUES (?)", [notifvalues], (err, insertEventNotificationResult) => {
+            if (err) {
+                db.rollback(() => {
+                    console.error("Error inserting into eventnotifications:", err);
+                    return res.status(500).json("Error inserting into eventnotifications");
+                });
+            }
+
+            db.commit((err) => {
+                if (err) {
+                    db.rollback(() => {
+                        console.error("Error committing transaction:", err);
+                        return res.status(500).json("Error committing transaction");
+                    });
+                }
+                
+                return res.status(200).json("Participant inserted, request deleted, and event notification inserted successfully");
+            });
+        });
     });
 });
 
@@ -199,3 +245,28 @@ app.get('/logout', (req, res) => {
     return res.json({Status: "Success"})
 })
 
+app.get('/usernotifications', (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ error: "Token not found" });
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, "our-token");
+        const username = decodedToken.name;
+
+        console.log("Username:", username);
+
+        db.query("SELECT * FROM eventnotifications WHERE username = ?", [username], (err, data) => {
+            if (err) {
+                console.error('Error fetching notifications:', err);
+                return res.status(500).json({ error: "Error fetching notifications" });
+            } else {
+                res.json(data);
+            }
+        });
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return res.status(401).json({ error: "Invalid token" });
+    }
+});

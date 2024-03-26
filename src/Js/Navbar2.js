@@ -26,9 +26,6 @@ function Navbar2() {
         <div className="NavBar2-left">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
-        <div className="Navbar-center">
-            <span className='App-name'>Metro Events</span>
-        </div>
         <div className="NavBar2-right">
           <Link to="/usernotifications" className='notifications'>Notifications</Link>
           <span className='notifications' onClick={handleLogout}>Log Out</span>
