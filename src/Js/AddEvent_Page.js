@@ -10,7 +10,7 @@ function AddEvent_Page() {
     eventDate: '',
     eventTime: '',
     eventCreated: currentDate,
-    username: 'alyssavivien',
+    username: '',
     eventDescription: ''
   });
 
@@ -21,7 +21,7 @@ function AddEvent_Page() {
   const handleSubmit = (e) => {
     e.preventDefault(); 
     
-    axios.post('http://localhost:8081/addevent', values)
+    axios.post('http://localhost:8081/addevent', values, {withCredentials: true})
     .then(res => {
       console.log(res);
       setValues({

@@ -273,22 +273,38 @@ app.listen(8081, () => {
 });
 
 app.post('/addevent', (req, res) => {
-    const sql = "INSERT INTO events (eventTitle, eventDate, eventTime, eventCreated, username, eventDescription) VALUES (?)";
-    const values = [
-        req.body.eventTitle,
-        req.body.eventDate,
-        req.body.eventTime,
-        req.body.eventCreated,
-        req.body.username,
-        req.body.eventDescription
-    ]
-    db.query(sql, [values], (err, data) => {
-        if(err){
-            return res.json("Error");
-        }
-        return res.json(data);
-    })
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ error: "Token not found" });
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, "our-token");
+        const username = decodedToken.name;
+
+        const sql = "INSERT INTO events (eventTitle, eventDate, eventTime, eventCreated, username, eventDescription) VALUES (?, ?, ?, ?, ?, ?)";
+        const values = [
+            req.body.eventTitle,
+            req.body.eventDate,
+            req.body.eventTime,
+            req.body.eventCreated,
+            username, 
+            req.body.eventDescription
+        ];
+
+        db.query(sql, values, (err, data) => {
+            if (err) {
+                console.error("Error adding event:", err);
+                return res.status(500).json("Error adding event");
+            }
+            return res.status(200).json("Event added successfully");
+        });
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return res.status(401).json({ error: "Invalid token" });
+    }
 });
+
 
 app.post('/insertparticipant', (req, res) => {
     const requestID = req.body.requestID;
