@@ -147,7 +147,34 @@ app.post('/deleteEvent', (req, res) => {
     });
 });
 
+app.post('/cancelevent', (req, res) => {
+    const username = req.body.username;
+    
+    const values = [
+        req.body.username,
+        req.body.eventID,
+        req.body.eventTitle,
+        req.body.reason
+    ]
 
+    const sql = "INSERT INTO cancelledevents (eventID, eventTitle, username, reason) VALUES (?)";
+    db.query(sql, [values], (err, data) => {
+        if(err){
+            return res.json("Error");
+        }
+
+        const deleteRequestSql = 'DELETE FROM events WHERE username = ?';
+            db.query(deleteRequestSql, [username], (err, result) => {
+                if (err) {
+                    console.error('Error deleting request:', err);
+                    return db.rollback(() => {
+                        res.status(500).json({ error: 'Error deleting request' });
+                    });
+                }
+            });
+        return res.json(data);
+    })
+});
 
 app.post('/sendDecline', (req, res) => {
     const username = req.body.username;

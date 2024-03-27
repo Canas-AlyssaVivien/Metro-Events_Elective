@@ -5,8 +5,17 @@ import axios from 'axios';
 function Organizer_HomePage() {
   const [events, setEvents] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
+  const [reason, setReason] = useState([]);
+
+  const [values] = useState({
+    username: 'alyssavivien'
+  });
 
   useEffect(() => {
+    fetchRequests();
+  }, []);
+
+  const fetchRequests = () => {
     axios.get('http://localhost:8081/organizerhome', {withCredentials: true})
       .then(response => {
         setEvents(response.data);
@@ -25,7 +34,19 @@ function Organizer_HomePage() {
       .catch(error => {
         console.error('Error fetching all events:', error);
       });
-  }, []);
+  };
+
+  const handleCancel = (eventID, eventTitle, reason) => {
+    const data = { ...values, eventID, eventTitle, reason};
+    axios.post('http://localhost:8081/cancelevent', data)
+      .then(response => {
+        console.log("Request approved:", response.data);
+        fetchRequests();
+      })
+      .catch(error => {
+        console.error('Error approving request:', error);
+      });
+  };
 
   return (
       <div className='orgbody'>
@@ -54,8 +75,8 @@ function Organizer_HomePage() {
                     <div className='edate'>{new Date(event.eventDate).toLocaleDateString()}, {event.eventTime.replace(/:[0-9]{2}\.?[0-9]*$/, '')}</div>
                   </div>
                   <div className='last'>
-                    <input className='reasoninput' placeholder='Why cancel the event?' />
-                    <button className='ccbutton'>Cancel Event</button>
+                    <input className='reasoninput' placeholder='Why cancel the event?' value={reason} onChange={e => setReason(e.target.value)}/>
+                    <button className='ccbutton' onClick={() => handleCancel(event.eventID, event.eventTitle, reason)}>Cancel Event</button>
                   </div>
               </li>
             ))}
