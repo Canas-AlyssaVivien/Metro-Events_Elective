@@ -437,6 +437,29 @@ app.get('/organizerhome', (req, res) => {
     }
 });
 
+app.get('/cancelledevents', (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ error: "Token not found" });
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, "our-token");
+        const username = decodedToken.name;
+
+        db.query("SELECT * FROM cancelledevents WHERE username = ?", [username], (err, data) => {
+            if (err) {
+                console.error('Error fetching events:', err);
+                return res.status(500).json({ error: "Error fetching events" });
+            } else {
+                res.json(data);
+            }
+        });
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return res.status(401).json({ error: "Invalid token" });
+    }
+});
 
 app.get('/organizernotifications', (req, res) => {
     const token = req.cookies.token;
