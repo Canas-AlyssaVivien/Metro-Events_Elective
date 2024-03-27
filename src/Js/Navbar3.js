@@ -9,6 +9,7 @@ function Navbar3() {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <div className="NavBar2-right">
+            <Link to="/organizerhome" className='notifications'>Home</Link>
             <Link to="/organizernotifications" className='orgbuttons'>Notifications</Link>
             <Link to="/addevent" className='orgbuttons'>Add Event</Link>
             <Link to="/cancelledevents" className='notifications'>Cancelled Events</Link>

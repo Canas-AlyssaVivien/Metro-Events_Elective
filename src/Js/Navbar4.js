@@ -27,6 +27,7 @@ function Navbar4() {
           <img src={logo} className="App-logo" alt="logo" />
         </div>
         <div className="NavBar2-right">
+          <Link to="/admin" className='notifications'>Home</Link>
           <Link to="/adminnotifications" className='notifications'>Notifications</Link>
           <span className='notifications' onClick={handleLogout}>Log Out</span>
         </div>
