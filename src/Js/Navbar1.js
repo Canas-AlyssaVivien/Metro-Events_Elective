@@ -12,7 +12,6 @@ function Navbar1() {
         <div className="NavBar-right">
           <Link to="/login" className="app-bar-button">Log In</Link>
           <Link to="/signup" className="last-button">Sign Up</Link>
-          <Link to="/adminlogin" className="last-button">Admin</Link>
         </div>
       </div>
   );

@@ -5,14 +5,6 @@ import axios from 'axios';
 function OrganizerNotifications_Page() {
   const [requests, setRequests] = useState([]);
   const [orgRequests, setOrgRequests] = useState([]);
-
-    const [values, setValues] = useState({
-        username: 'alyssavivien'
-    });
-
-    useEffect(() => {
-        console.log("Updated values:", values);
-      }, [values]);
   
       useEffect(() => {
         fetchOrgRequests();
@@ -43,7 +35,7 @@ function OrganizerNotifications_Page() {
   };
 
   const approve = (requestID, eventTitle) => {
-    const data = { ...values, requestID, eventTitle };
+    const data = {requestID, eventTitle };
     axios.post('http://localhost:8081/insertparticipant', data)
       .then(response => {
         console.log("Request approved:", response.data);
@@ -55,7 +47,7 @@ function OrganizerNotifications_Page() {
   };
   
   const decline = (requestID, eventTitle) => {
-    const data = { ...values, requestID, eventTitle };
+    const data = {requestID, eventTitle };
     axios.post('http://localhost:8081/deleterequest', data)
       .then(response => {
         console.log("Request declined:", response.data);

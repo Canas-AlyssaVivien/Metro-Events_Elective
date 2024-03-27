@@ -27,7 +27,6 @@ const formatDate = (date) => {
   
     formatTime: (timeString) => {
       try {
-          // Ensure that timeString is in a valid format (e.g., "HH:MM:SS")
           const timeParts = timeString.split(':');
           const hours = parseInt(timeParts[0]);
           const minutes = parseInt(timeParts[1]);

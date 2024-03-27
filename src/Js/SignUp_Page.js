@@ -1,5 +1,4 @@
 import '../Css/SignUp_Page.css';
-import { useNavigate } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
@@ -13,8 +12,6 @@ function SignUp_Page() {
     username: '',
     password: ''
   });
-
-  const [errors, setErrors] = useState({})
 
   const handleInput = (e) => {
     setValues(prev => ({...prev, [e.target.name] : [e.target.value]}))
@@ -30,31 +27,6 @@ function SignUp_Page() {
       history.push('/login');
       console.log('Success');
     }).catch(err => console.log(err));
-   
-
-    // createUserWithEmailAndPassword(auth, email, password)
-    // .then((userCredential) => {
-    //   console.log(userCredential);
-
-    //   const userId = userCredential.user.uid;
-
-    //   const userRef = ref(db, `Users/${userId}`);
-    //   set(userRef, {
-    //     username: username,
-    //     email: email,
-    //     password: password,
-    //     userType: 0
-    //   })
-    //     .then(() => {
-    //       console.log('User data added successfully');
-    //       history.push('/login');
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error adding user data: ', error);
-    //     });
-    // }).catch((error) => {
-    //   console.log(error);
-    // })
   };
   
   return (

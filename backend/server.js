@@ -36,6 +36,19 @@ app.post('/signup', (req, res) => {
     })
 });
 
+app.get('/checkusername', (req, res) => {
+    const username = req.query.username;
+    const sql = "SELECT COUNT(*) AS count FROM users WHERE username = ?";
+    db.query(sql, [username], (err, result) => {
+      if (err) {
+        console.error('Error checking username uniqueness:', err);
+        return res.status(500).json({ isUnique: false });
+      }
+      const count = result[0].count;
+      return res.json({ isUnique: count === 0 });
+    });
+  });  
+
 app.post('/login', (req, res) => {
     const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
     db.query(sql, [req.body.email, req.body.password], (err, data) => {

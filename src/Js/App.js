@@ -68,7 +68,6 @@ function App() {
             <UserNotifications_Page/>
           </Route>
           <Route exact path="/adminlogin">
-            <Navbar4/>
             <Admin_Login/>
           </Route>
         </Switch>
