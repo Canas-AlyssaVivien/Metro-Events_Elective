@@ -5,7 +5,29 @@ import axios from 'axios';
 function UserNotifications_Page() {
 
   const [notifications, setNotifications] = useState([]);
+<<<<<<< HEAD
   const [cancelledevents, setCancelledEvents] = useState([]);
+=======
+  const [orgNotifs, setOrgNotifs] = useState([]);
+
+  useEffect(() => {
+    fetchOrgNotifications();
+  }, []);
+
+  const fetchOrgNotifications = () => {
+    axios.get('http://localhost:8081/userorgnotifications', { withCredentials: true })
+      .then(response => {
+        setOrgNotifs(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching notifications:', error);
+      });
+  };
+
+  const getStatMessage = (status) => {
+    return status === 0 ? "Your request to be an organizer has been Disapproved" : "Request to join event is Approved";
+  };
+>>>>>>> 4b2fcce0c95e609baa35c92d2511a3ebf5142629
 
   useEffect(() => {
     fetchNotifications();
@@ -62,6 +84,18 @@ function UserNotifications_Page() {
                     </div>
                 </div>
             ))}
+            {orgNotifs.map(notification => (
+            <div key={orgNotifs.requestID}>
+              {notification.status === 0 && (
+                <div className='reqRow'>
+                  <div className='des'>
+                    <div className='etitle'>Administrator</div>
+                    <div className='status'>Your request to be an organizer has been Dispproved!</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
             </ul>
         </div>
       </div>

@@ -84,15 +84,17 @@ function OrganizerNotifications_Page() {
                 </div>
             ))}
             {orgRequests.map((request, index) => (
-                    <div key={index} className="reqRow">
-                        <div className='des'>
-                            <div style={{ fontSize: '20px' }}>{request.username}</div>
-                                {request.status === 1 && (
-                                    <div className='status'>Your request as an organizer has been approved!</div>
-                                )}
-                            </div>
+                    <div key={index}>
+                      {request.status === 1 && (
+                        <div className='reqRow'>
+                          <div className='des'>
+                            <div className='etitle' style={{ fontSize: '20px' }}>{request.username}</div>
+                            <div className='status'>Your request to be an organizer has been Approved!</div>
+                          </div>
                         </div>
-                    ))}
+                      )}
+                    </div>  
+            ))}
             </ul>   
         </div>
       </div>
