@@ -22,10 +22,6 @@ function UserNotifications_Page() {
       });
   };
 
-  const getStatMessage = (status) => {
-    return status === 0 ? "Your request to be an organizer has been Disapproved" : "Request to join event is Approved";
-  };
-
   useEffect(() => {
     fetchNotifications();
     fetchCancelledEvents();

@@ -69,7 +69,7 @@ function OrganizerNotifications_Page() {
   return (
       <div className='reqbody'>
         <div className='reqcard'>
-          <h4>Requests</h4>
+          <h4>Requests and Notifications</h4>
             <ul>
             {requests.map(request => (
                 <div key={request.requestID} className="reqRow">
