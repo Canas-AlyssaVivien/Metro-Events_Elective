@@ -1,16 +1,8 @@
-// const express = require("express");
-// const mysql = require('mysql');
-// const cors = require('cors');
-
 import express from 'express'
 import mysql from 'mysql'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
-
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
 
 const app = express();
 app.use(cookieParser())
@@ -595,17 +587,11 @@ app.get('/orgrequests', (req, res) => {
     }
 });
 
-<<<<<<< HEAD
-app.get('/cancelledeventnotif', (req, res) => {
-=======
 app.get('/userorgnotifications', (req, res) => {
->>>>>>> 4b2fcce0c95e609baa35c92d2511a3ebf5142629
     const token = req.cookies.token;
     if (!token) {
         return res.status(401).json({ error: "Token not found" });
     }
-<<<<<<< HEAD
-=======
 
     try {
         const decodedToken = jwt.verify(token, "our-token");
@@ -625,8 +611,7 @@ app.get('/userorgnotifications', (req, res) => {
     }
 });
 
->>>>>>> 4b2fcce0c95e609baa35c92d2511a3ebf5142629
-
+app.get('/cancelledeventnotif', (req, res) => {
     try {
         const decodedToken = jwt.verify(token, "our-token");
         const username = decodedToken.name;

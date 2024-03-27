@@ -5,9 +5,7 @@ import axios from 'axios';
 function UserNotifications_Page() {
 
   const [notifications, setNotifications] = useState([]);
-<<<<<<< HEAD
   const [cancelledevents, setCancelledEvents] = useState([]);
-=======
   const [orgNotifs, setOrgNotifs] = useState([]);
 
   useEffect(() => {
@@ -27,7 +25,6 @@ function UserNotifications_Page() {
   const getStatMessage = (status) => {
     return status === 0 ? "Your request to be an organizer has been Disapproved" : "Request to join event is Approved";
   };
->>>>>>> 4b2fcce0c95e609baa35c92d2511a3ebf5142629
 
   useEffect(() => {
     fetchNotifications();
