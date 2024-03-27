@@ -347,11 +347,18 @@ app.post('/addevent', (req, res) => {
 
 app.post('/insertparticipant', (req, res) => {
     const requestID = req.body.requestID;
+    const status = 1;
 
     const sqlDeleteRequest = "DELETE FROM requests WHERE requestID = ?";
 
     const values = [
         req.body.eventTitle,
+        req.body.username
+    ]
+
+    const valuess = [
+        req.body.eventTitle,
+        status,
         req.body.username
     ]
 
@@ -369,37 +376,84 @@ app.post('/insertparticipant', (req, res) => {
                 });
             }
 
-            db.query(sqlDeleteRequest, [requestID], (err, deleteResult) => {
+            db.query("INSERT INTO eventnotifications (eventTitle, status, username) VALUES (?)", [valuess], (err, insertResult) => {
                 if (err) {
                     db.rollback(() => {
-                        console.error("Error deleting from requests:", err);
-                        return res.status(500).json("Error deleting from requests");
+                        console.error("Error inserting into participants:", err);
+                        return res.status(500).json("Error inserting into participants");
                     });
                 }
 
-                db.commit((err) => {
+                db.query(sqlDeleteRequest, [requestID], (err, deleteResult) => {
                     if (err) {
                         db.rollback(() => {
-                            console.error("Error committing transaction:", err);
-                            return res.status(500).json("Error committing transaction");
+                            console.error("Error deleting from requests:", err);
+                            return res.status(500).json("Error deleting from requests");
                         });
                     }
-                    
-                    return res.status(200).json("Participant inserted and request deleted successfully");
+
+                    db.commit((err) => {
+                        if (err) {
+                            db.rollback(() => {
+                                console.error("Error committing transaction:", err);
+                                return res.status(500).json("Error committing transaction");
+                            });
+                        }
+                        
+                        return res.status(200).json("Participant inserted and request deleted successfully");
+                    });
                 });
             });
         });
     });
 });
 
-app.delete('/deleterequest', (req, res) => {
+app.post('/deleterequest', (req, res) => {
     const requestID = req.body.requestID;
-    const sql = "DELETE FROM requests WHERE requestID = ?";
-    db.query(sql, [requestID], (err, data) => {
-        if(err){
-            return res.status(500).json({ error: "Error deleting request" });
+    const status = 0;
+
+    const sqlDeleteRequest = "DELETE FROM requests WHERE requestID = ?";
+
+    const valuess = [
+        req.body.eventTitle,
+        status,
+        req.body.username
+    ]
+
+    db.beginTransaction((err) => {
+        if (err) {
+            console.error("Error beginning transaction:", err);
+            return res.status(500).json("Error beginning transaction");
         }
-        return res.json({ message: "Request deleted successfully" });
+
+            db.query("INSERT INTO eventnotifications (eventTitle, status, username) VALUES (?)", [valuess], (err, insertResult) => {
+                if (err) {
+                    db.rollback(() => {
+                        console.error("Error inserting into participants:", err);
+                        return res.status(500).json("Error inserting into participants");
+                    });
+                }
+
+                db.query(sqlDeleteRequest, [requestID], (err, deleteResult) => {
+                    if (err) {
+                        db.rollback(() => {
+                            console.error("Error deleting from requests:", err);
+                            return res.status(500).json("Error deleting from requests");
+                        });
+                    }
+
+                    db.commit((err) => {
+                        if (err) {
+                            db.rollback(() => {
+                                console.error("Error committing transaction:", err);
+                                return res.status(500).json("Error committing transaction");
+                            });
+                        }
+                        
+                        return res.status(200).json("Participant inserted and request deleted successfully");
+                    });
+                });
+            });
     });
 });
 
@@ -541,6 +595,29 @@ app.get('/orgrequests', (req, res) => {
     }
 });
 
+app.get('/cancelledeventnotif', (req, res) => {
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ error: "Token not found" });
+    }
 
+    try {
+        const decodedToken = jwt.verify(token, "our-token");
+        const username = decodedToken.name;
 
-
+        db.query(`
+            SELECT * FROM cancelledevents ce
+            INNER JOIN participants p ON ce.eventTitle = p.eventTitle
+            WHERE p.username = ?`, [username], (err, data) => {
+            if (err) {
+                console.error('Error fetching cancelled events:', err);
+                return res.status(500).json({ error: "Error fetching cancelled events" });
+            } else {
+                res.json(data);
+            }
+        });
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return res.status(401).json({ error: "Invalid token" });
+    }
+});

@@ -5,11 +5,12 @@ import axios from 'axios';
 function UserNotifications_Page() {
 
   const [notifications, setNotifications] = useState([]);
+  const [cancelledevents, setCancelledEvents] = useState([]);
 
   useEffect(() => {
     fetchNotifications();
+    fetchCancelledEvents();
   }, []);
-
 
   const fetchNotifications = () => {
     axios.get('http://localhost:8081/usernotifications', {withCredentials: true})
@@ -25,40 +26,15 @@ function UserNotifications_Page() {
     return status === 0 ? "Request to join event is Disapproved" : "Request to join event is Approved";
   };
 
-  /*const [requests, setRequests] = useState([]);
-
-    const [values, setValues] = useState({
-        eventTitle: '',
-        username: 'alyssavivien'
-    });
-
-    const handleSelectRequest = (request) => {
-        console.log("Event TITE: " + request.eventTitle);
-        setValues({ ...values, eventTitle: request.eventTitle });
-    };
-
-    useEffect(() => {
-        console.log("Updated values:", values);
-      }, [values]);
-
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
-
-
-  const fetchNotifications = () => {
-    axios.get('http://localhost:8081/usernotifications', {withCredentials: true})
+  const fetchCancelledEvents = () => {
+    axios.get('http://localhost:8081/cancelledeventnotif', {withCredentials: true})
       .then(response => {
-        setNotifications(response.data);
+        setCancelledEvents(response.data);
       })
       .catch(error => {
         console.error('Error fetching notifications:', error);
       });
   };
-
-  const getStatusMessage = (status) => {
-    return status === 0 ? "Request to join event is Disapproved" : "Request to join event is Approved";
-  };*/
 
   return (
       <div className='reqbody'>
@@ -70,7 +46,19 @@ function UserNotifications_Page() {
                     <div className='des'>
                         <div className='etitle'>{notification.eventTitle}</div>
                         <div className='status'>{getStatusMessage(notification.status)}</div>
-                        {/* Add other fields as needed */}
+                    </div>
+                </div>
+            ))}
+            </ul>
+        </div>
+        <div className='reqcard'>
+          <h4>Cancelled Events</h4>
+            <ul>
+              {cancelledevents.map(cancelledevent => (
+                <div key={cancelledevent.notificationID} className="reqRow">
+                    <div className='des'>
+                        <div className='etitle'>{cancelledevent.eventTitle} is cancelled</div>
+                        <div className='status'>Reason: {(cancelledevent.reason)}</div>
                     </div>
                 </div>
             ))}
