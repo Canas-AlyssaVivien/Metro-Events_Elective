@@ -11,7 +11,8 @@ function Navbar3() {
         <div className="NavBar2-right">
             <Link to="/organizernotifications" className='orgbuttons'>Notifications</Link>
             <Link to="/addevent" className='orgbuttons'>Add Event</Link>
-            <Link to="/signup" className='orgbuttons'>Log Out</Link>
+            <Link to="/cancelledevents" className='notifications'>Cancelled Events</Link>
+            <Link to="/login" className='orgbuttons'>Log Out</Link>
         </div>
       </div>
   );

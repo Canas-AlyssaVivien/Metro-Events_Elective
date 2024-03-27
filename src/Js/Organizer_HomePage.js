@@ -7,10 +7,6 @@ function Organizer_HomePage() {
   const [allEvents, setAllEvents] = useState([]);
   const [reason, setReason] = useState([]);
 
-  const [values] = useState({
-    username: 'alyssavivien'
-  });
-
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -37,7 +33,7 @@ function Organizer_HomePage() {
   };
 
   const handleCancel = (eventID, eventTitle, reason) => {
-    const data = { ...values, eventID, eventTitle, reason};
+    const data = {eventID, eventTitle, reason};
     axios.post('http://localhost:8081/cancelevent', data, {withCredentials: true})
       .then(response => {
         console.log("Request approved:", response.data);
