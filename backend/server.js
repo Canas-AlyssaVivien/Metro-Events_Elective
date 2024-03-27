@@ -148,33 +148,45 @@ app.post('/deleteEvent', (req, res) => {
 });
 
 app.post('/cancelevent', (req, res) => {
-    const username = req.body.username;
-    
-    const values = [
-        req.body.username,
-        req.body.eventID,
-        req.body.eventTitle,
-        req.body.reason
-    ]
+    const token = req.cookies.token;
+    if (!token) {
+        return res.status(401).json({ error: "Token not found" });
+    }
 
-    const sql = "INSERT INTO cancelledevents (eventID, eventTitle, username, reason) VALUES (?)";
-    db.query(sql, [values], (err, data) => {
-        if(err){
-            return res.json("Error");
-        }
+    try {
+        const decodedToken = jwt.verify(token, "our-token");
+        const username = decodedToken.name;
 
-        const deleteRequestSql = 'DELETE FROM events WHERE username = ?';
+        const values = [
+            req.body.eventID,
+            req.body.eventTitle,
+            username, 
+            req.body.reason
+        ];
+
+        const sql = "INSERT INTO cancelledevents (eventID, eventTitle, username, reason) VALUES (?)";
+        db.query(sql, [values], (err, data) => {
+            if (err) {
+                console.error('Error inserting into cancelledevents:', err);
+                return res.status(500).json({ error: "Error cancelling event" });
+            }
+
+            const deleteRequestSql = 'DELETE FROM events WHERE username = ?';
             db.query(deleteRequestSql, [username], (err, result) => {
                 if (err) {
-                    console.error('Error deleting request:', err);
-                    return db.rollback(() => {
-                        res.status(500).json({ error: 'Error deleting request' });
-                    });
+                    console.error('Error deleting event:', err);
+                    return res.status(500).json({ error: 'Error deleting event' });
                 }
+
+                return res.json(data);
             });
-        return res.json(data);
-    })
+        });
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return res.status(401).json({ error: "Invalid token" });
+    }
 });
+
 
 app.post('/sendDecline', (req, res) => {
     const username = req.body.username;

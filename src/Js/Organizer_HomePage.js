@@ -38,7 +38,7 @@ function Organizer_HomePage() {
 
   const handleCancel = (eventID, eventTitle, reason) => {
     const data = { ...values, eventID, eventTitle, reason};
-    axios.post('http://localhost:8081/cancelevent', data)
+    axios.post('http://localhost:8081/cancelevent', data, {withCredentials: true})
       .then(response => {
         console.log("Request approved:", response.data);
         fetchRequests();
