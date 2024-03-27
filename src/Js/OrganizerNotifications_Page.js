@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function OrganizerNotifications_Page() {
   const [requests, setRequests] = useState([]);
+  const [orgRequests, setOrgRequests] = useState([]);
 
     const [values, setValues] = useState({
         username: 'alyssavivien'
@@ -12,6 +13,20 @@ function OrganizerNotifications_Page() {
     useEffect(() => {
         console.log("Updated values:", values);
       }, [values]);
+  
+      useEffect(() => {
+        fetchOrgRequests();
+    }, []);
+
+    const fetchOrgRequests = () => {
+        axios.get('http://localhost:8081/orgrequests', { withCredentials: true })
+            .then(response => {
+                setOrgRequests(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching orgrequests:', error);
+            });
+    };
 
   useEffect(() => {
     fetchRequests();
@@ -68,6 +83,16 @@ function OrganizerNotifications_Page() {
                     </div>
                 </div>
             ))}
+            {orgRequests.map((request, index) => (
+                    <div key={index} className="reqRow">
+                        <div className='des'>
+                            <div style={{ fontSize: '20px' }}>{request.username}</div>
+                                {request.status === 1 && (
+                                    <div className='status'>Your request as an organizer has been approved!</div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
             </ul>   
         </div>
       </div>
