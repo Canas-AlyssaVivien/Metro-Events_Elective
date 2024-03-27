@@ -15,6 +15,7 @@ import OrganizerNotifications_Page from './OrganizerNotifications_Page';
 import UserNotifications_Page from './UserNotifications_Page';
 import AdminNotifications_Page from './AdminNotifications_Page';
 import OrganizerCancelledEvents_Page from './OrganizerCancelledEvents_Page';
+import Admin_Login from './Admin_Login';
 
 function App() {
 
@@ -65,6 +66,10 @@ function App() {
           <Route exact path="/usernotifications">
             <Navbar2/>
             <UserNotifications_Page/>
+          </Route>
+          <Route exact path="/adminlogin">
+            <Navbar4/>
+            <Admin_Login/>
           </Route>
         </Switch>
       </div>

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Validation from './LoginValidation';
 import axios from 'axios';
 
-function LogIn_Page() {
+function Admin_Login() {
   const history = useHistory();
   const [user, setUser] = useState(null);
 
@@ -48,7 +48,7 @@ function LogIn_Page() {
       <div className='body1'>
         <div className='card1'>
             <div className='name1'>
-              <h1>Log in to your account</h1>
+              <h1>Administrator Log In</h1>
             </div>
             <div className='login'>
               <form onSubmit={handleSubmit}>
@@ -76,4 +76,4 @@ function LogIn_Page() {
   );
 }
 
-export default LogIn_Page;
+export default Admin_Login;
